@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from the_finder import app
+from the_finder import app , redis_client
 from flask import request
 
 @app.route('/')
 def get_main():
-    return "Hello"
+    redis_client.set('name', 'John')
+    redis_client.set('k', '2')
+    test = redis_client.get('name').decode()
+    return "hi"+str(test)
+    #return 'Hello, {}!'.format(redis_client.get('name').decode())
+    
 
 '''
 OTHER PATH
