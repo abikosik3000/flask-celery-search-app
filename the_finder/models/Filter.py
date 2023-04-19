@@ -11,7 +11,7 @@ class Filter(EmbeddedJsonModel,ABC):
     def _comparate(self, x) -> bool:
 
         y = self.get_value()
-        print(x , self.operator , y  )
+        #print(x , self.operator , y  )
         match self.operator:
             case "eq": 
                 return x == y

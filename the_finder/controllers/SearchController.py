@@ -5,11 +5,11 @@ import json
 
 class SearchController(Controller):
     test_s = '{\
-                "text": "a",\
-                "file_mask": "*.txt",\
+                "text": "th",\
+                "file_mask": "*",\
                 "size": {\
-                    "value": 11,\
-                    "operator": "lt"\
+                    "value": 0,\
+                    "operator": "gt"\
                 },\
                 "creation_time": {\
                     "value": "2020-03-03T14:00:54Z",\
