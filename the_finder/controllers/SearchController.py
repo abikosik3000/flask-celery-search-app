@@ -5,25 +5,26 @@ import json
 
 class SearchController(Controller):
     test_s = '{\
-                "text": "abs",\
+                "text": "a",\
                 "file_mask": "*.txt",\
                 "size": {\
-                    "value": 42000,\
-                    "operator": "gt"\
+                    "value": 11,\
+                    "operator": "lt"\
                 },\
                 "creation_time": {\
                     "value": "2020-03-03T14:00:54Z",\
-                    "operator": "eq"\
+                    "operator": "gt"\
                 }\
             }'
-
+#Z
     @staticmethod
     def post_search(request):
         #req_data = request.get_json()
         new_search = Search(**json.loads(SearchController.test_s))#req_data
         new_search.save()
         new_search.start_search()
-        return jsonify({'search_key': new_search.pk}) ,200
+        return jsonify(new_search.search_res)
+        #return jsonify({'search_key': new_search.pk}) ,200
 
     @staticmethod
     def get_searches(request,search_id):
