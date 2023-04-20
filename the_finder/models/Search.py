@@ -46,7 +46,7 @@ class Search(JsonModel):
     def _chek_arhive(self, abspath_arhive) -> None:
         arhive = ZipFile(abspath_arhive, "r", allowZip64=True)
         for file_info in arhive.infolist():
-            if(file_info.is_dir):
+            if(file_info.is_dir()):
                 continue
 
             if self._chek_arhive_file(file_info, arhive):
