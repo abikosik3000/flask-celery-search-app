@@ -6,7 +6,7 @@ import json
 class SearchController(Controller):
     test_s = '{\
                 "text": "th",\
-                "file_mask": "*",\
+                "file_mask": "*.txt",\
                 "size": {\
                     "value": 0,\
                     "operator": "gt"\

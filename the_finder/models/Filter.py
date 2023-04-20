@@ -1,5 +1,6 @@
 from redis_om import EmbeddedJsonModel, Field
 from abc import ABC , abstractmethod
+from zipfile import ZipInfo
 
 class Filter(EmbeddedJsonModel,ABC):
     value: str = Field(index=True)
@@ -28,4 +29,8 @@ class Filter(EmbeddedJsonModel,ABC):
 
     @abstractmethod
     def chek_compilance(self, fpath: str) -> bool:
+        pass
+
+    @abstractmethod
+    def chek_arhive_compilance(self, z_info: ZipInfo) -> bool:
         pass
