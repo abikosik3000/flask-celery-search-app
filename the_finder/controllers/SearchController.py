@@ -23,8 +23,8 @@ class SearchController(Controller):
         new_search = Search(**json.loads(SearchController.test_s))#req_data
         new_search.save()
         new_search.search()
-        return jsonify(new_search.search_res)
-        #return jsonify({'search_key': new_search.pk}) ,200
+        #return jsonify(new_search.search_res)
+        return jsonify({'search_key': new_search.pk}) ,200
 
     @staticmethod
     def get_searches(request,search_id):
