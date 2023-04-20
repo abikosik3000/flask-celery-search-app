@@ -1,6 +1,7 @@
 from the_finder.controllers.Controller import Controller
 from the_finder.models.Search import Search
 from flask import request , jsonify
+from the_finder.tasks import search_files
 import json
 
 class SearchController(Controller):
@@ -22,8 +23,8 @@ class SearchController(Controller):
         #req_data = request.get_json()
         new_search = Search(**json.loads(SearchController.test_s))#req_data
         new_search.save()
-        new_search.search()
-        #return jsonify(new_search.search_res)
+        search_files.delay(new_search.pk)
+        #new_search.search()
         return jsonify({'search_key': new_search.pk}) ,200
 
     @staticmethod

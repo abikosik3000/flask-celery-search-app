@@ -2,6 +2,10 @@ from .celery import celery
 from the_finder.models.Search import Search
 
 @celery.task
+def search_files(search_id :str):
+    Search.get(search_id).search()
+
+@celery.task
 def test():
     s = 0
     for i in range(1000000):

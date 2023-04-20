@@ -84,4 +84,5 @@ class Search(JsonModel):
                     self.save()
 
         self.finished = True
+        print("search end result" , self)
         self.save()
