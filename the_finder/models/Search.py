@@ -8,6 +8,7 @@ import os
 import mmap
 from zipfile import ZipFile, ZipInfo, is_zipfile
 import fnmatch
+import asyncio
 
 
 class Search(JsonModel):
@@ -47,7 +48,7 @@ class Search(JsonModel):
         for file_info in arhive.infolist():
             if(file_info.is_dir):
                 continue
-            
+
             if self._chek_arhive_file(file_info, arhive):
                 self.paths.append(os.path.join(abspath_arhive, file_info.filename))
                 self.save()

@@ -16,7 +16,7 @@ class SearchController(Controller):
                     "operator": "gt"\
                 }\
             }'
-#Z
+
     @staticmethod
     def post_search(request):
         #req_data = request.get_json()
