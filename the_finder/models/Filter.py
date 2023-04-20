@@ -1,6 +1,8 @@
-from redis_om import EmbeddedJsonModel, Field
 from abc import ABC , abstractmethod
 from zipfile import ZipInfo
+
+from redis_om import EmbeddedJsonModel, Field
+
 
 class Filter(EmbeddedJsonModel,ABC):
     value: str = Field(index=True)
@@ -10,9 +12,7 @@ class Filter(EmbeddedJsonModel,ABC):
         return self.value
 
     def _comparate(self, x) -> bool:
-
         y = self.get_value()
-        #print(x , self.operator , y  )
         match self.operator:
             case "eq": 
                 return x == y

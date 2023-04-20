@@ -1,14 +1,15 @@
+import os
+import mmap
+import fnmatch
+from zipfile import ZipFile, ZipInfo, is_zipfile
+
 from redis_om import JsonModel, Field
 from typing import Optional, List
 from pydantic import ValidationError
+
 from the_finder.models.FilterSize import FilterSize
 from the_finder.models.FilterCreationTime import FilterCreationTime
 from the_finder import app
-import os
-import mmap
-from zipfile import ZipFile, ZipInfo, is_zipfile
-import fnmatch
-import asyncio
 
 
 class Search(JsonModel):
@@ -20,16 +21,16 @@ class Search(JsonModel):
     paths: List[str] = Field(default=list())
 
     @property
-    def search_res(self)-> dict:
+    def search_res(self) -> dict:
         res = {"finished": self.finished}
         if self.finished:
             res.update({"paths": self.paths})
         return res
 
     def _chek_arhive_file(self, file: ZipInfo, arhive: ZipFile) -> bool:
-        if not fnmatch.fnmatch(os.path.basename(file.filename) , self.file_mask):
+        if not fnmatch.fnmatch(os.path.basename(file.filename), self.file_mask):
             return False
-        
+
         if not self.size is None:
             if not self.size.chek_arhive_compilance(file):
                 return False
@@ -46,15 +47,15 @@ class Search(JsonModel):
     def _chek_arhive(self, abspath_arhive) -> None:
         arhive = ZipFile(abspath_arhive, "r", allowZip64=True)
         for file_info in arhive.infolist():
-            if(file_info.is_dir()):
+            if file_info.is_dir():
                 continue
 
             if self._chek_arhive_file(file_info, arhive):
                 self.paths.append(os.path.join(abspath_arhive, file_info.filename))
                 self.save()
 
-    def _chek_file(self, abspath :str) -> bool:
-        if not fnmatch.fnmatch(os.path.basename(abspath) , self.file_mask):
+    def _chek_file(self, abspath: str) -> bool:
+        if not fnmatch.fnmatch(os.path.basename(abspath), self.file_mask):
             return False
 
         if not self.size is None:
@@ -84,5 +85,5 @@ class Search(JsonModel):
                     self.save()
 
         self.finished = True
-        print("search end result" , self)
+        print("search end result", self)
         self.save()

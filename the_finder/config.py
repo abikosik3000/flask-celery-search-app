@@ -1,5 +1,6 @@
-from the_finder import app
 import os
+
+from the_finder import app
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["BASEDIR"] = basedir

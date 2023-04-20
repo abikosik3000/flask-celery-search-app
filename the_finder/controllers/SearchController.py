@@ -1,8 +1,10 @@
+import json
+
+from flask import request , jsonify
+
 from the_finder.controllers.Controller import Controller
 from the_finder.models.Search import Search
-from flask import request , jsonify
 from the_finder.tasks import search_files
-import json
 
 class SearchController(Controller):
     test_s = '{\
