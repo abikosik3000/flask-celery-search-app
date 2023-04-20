@@ -18,6 +18,13 @@ def searches(search_id):
     print(search_id)
     return SearchController.get_searches(request,search_id)
 
+@app.route('/test')
+def index():
+    from the_finder.tasks import test
+    test.delay()
+    #async_function.delay(1, 2)
+    return 'Task has been submitted '
+
 '''
 OTHER PATH
 '''

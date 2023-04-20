@@ -1,9 +1,10 @@
-from . import make_celery
-
-celery = make_celery()
+from .celery import celery
+from the_finder.models.Search import Search
 
 @celery.task
 def test():
-    from the_finder.models.Search import Search
-    print(Search.get("01GYFHGTC3N60ND9W1M3WFMH04").search_res)
+    s = 0
+    for i in range(1000000):
+        s = 0 + 1
+    print(Search.get("01GYFZEEV3TTY5SH5RMXSB58K2").search_res)
     
