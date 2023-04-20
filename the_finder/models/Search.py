@@ -19,7 +19,7 @@ class Search(JsonModel):
     paths: List[str] = Field(default=list())
 
     @property
-    def search_res(self):
+    def search_res(self)-> dict:
         res = {"finished": self.finished}
         if self.finished:
             res.update({"paths": self.paths})
@@ -42,9 +42,12 @@ class Search(JsonModel):
                 return False
         return True
 
-    def _chek_arhive(self, abspath_arhive):
+    def _chek_arhive(self, abspath_arhive) -> None:
         arhive = ZipFile(abspath_arhive, "r", allowZip64=True)
         for file_info in arhive.infolist():
+            if(file_info.is_dir):
+                continue
+            
             if self._chek_arhive_file(file_info, arhive):
                 self.paths.append(os.path.join(abspath_arhive, file_info.filename))
                 self.save()
@@ -67,8 +70,7 @@ class Search(JsonModel):
                     return False
         return True
 
-    def start_search(self):
-        # mask glob
+    def search(self) -> None:
         for root, dirs, files in os.walk(app.config["SEARCH_DIRECTORY"]):
             for file_name in files:
                 abspath = os.path.join(root, file_name)

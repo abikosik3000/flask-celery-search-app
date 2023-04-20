@@ -6,7 +6,7 @@ import json
 class SearchController(Controller):
     test_s = '{\
                 "text": "th",\
-                "file_mask": "*.txt",\
+                "file_mask": "*",\
                 "size": {\
                     "value": 0,\
                     "operator": "gt"\
@@ -22,7 +22,7 @@ class SearchController(Controller):
         #req_data = request.get_json()
         new_search = Search(**json.loads(SearchController.test_s))#req_data
         new_search.save()
-        new_search.start_search()
+        new_search.search()
         return jsonify(new_search.search_res)
         #return jsonify({'search_key': new_search.pk}) ,200
 
