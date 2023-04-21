@@ -5,7 +5,7 @@ from zipfile import ZipFile, ZipInfo, is_zipfile
 
 from redis_om import JsonModel, Field
 from typing import Optional, List
-from pydantic import ValidationError
+from pydantic import StrictStr
 
 from the_finder.models.FilterSize import FilterSize
 from the_finder.models.FilterCreationTime import FilterCreationTime
@@ -13,8 +13,8 @@ from the_finder import app
 
 
 class Search(JsonModel):
-    text: Optional[str]
-    file_mask: str = Field(default="*")
+    text: Optional[StrictStr]
+    file_mask: StrictStr = Field(default="*")
     size: Optional[FilterSize]
     creation_time: Optional[FilterCreationTime]
     finished: bool = Field(default=False)

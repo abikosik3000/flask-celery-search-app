@@ -1,17 +1,18 @@
 import json
 
 from flask import request , jsonify
+from pydantic import ValidationError
+from redis_om import NotFoundError
 
 from the_finder.controllers.Controller import Controller
-from the_finder.models.Search import Search
-from the_finder.tasks import search_files
+from the_finder.services.TheFinderApi import TheFinderApi
 
 class SearchController(Controller):
     test_s = '{\
                 "text": "th",\
                 "file_mask": "*",\
                 "size": {\
-                    "value": 0,\
+                    "value": 1,\
                     "operator": "gt"\
                 },\
                 "creation_time": {\
@@ -22,14 +23,18 @@ class SearchController(Controller):
 
     @staticmethod
     def post_search(request):
-        #req_data = request.get_json()
-        new_search = Search(**json.loads(SearchController.test_s))#req_data
-        new_search.save()
-        search_files.delay(new_search.pk)
-        #new_search.search()
-        return jsonify({'search_key': new_search.pk}) ,200
-
+        try:
+            json_dict = json.loads(SearchController.test_s) #request.get_json()
+            search_key = TheFinderApi.create_search(json_dict)
+            return jsonify({'search_key': search_key}), 200
+        except ValidationError as e:
+            return e.json(), 400
+        
     @staticmethod
-    def get_searches(request,search_id):
-        now_search = Search.get(search_id).search_res
-        return jsonify(now_search) ,200
+    def get_searches(request,search_key):
+        try:
+            result = TheFinderApi.get_result(search_key)
+            return jsonify(result), 200
+        except NotFoundError as e:
+            return "this ID was not found", 400
+        

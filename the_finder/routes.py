@@ -1,5 +1,5 @@
 from redis_om import Migrator
-from flask import request
+from flask import request, abort
 
 from the_finder import app
 from the_finder.controllers.SearchController import SearchController
@@ -7,6 +7,7 @@ from the_finder.controllers.SearchController import SearchController
 
 @app.route("/")
 def get_main():
+    abort(400, 'Record not found') 
     return "main"
 
 
@@ -29,12 +30,3 @@ OTHER PATH
 def migrate():
     Migrator().run()
     return "Migrating..."
-
-
-@app.route("/shutdown", methods=["GET"])
-def shutdown():
-    func = request.environ.get("werkzeug.server.shutdown")
-    if func is None:
-        raise RuntimeError("Not running with the Werkzeug Server")
-    func()
-    return "Server shutting down..."
