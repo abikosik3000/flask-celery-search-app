@@ -5,13 +5,7 @@ from the_finder import app
 from the_finder.controllers.SearchController import SearchController
 
 
-@app.route("/")
-def get_main():
-    abort(400, 'Record not found') 
-    return "main"
-
-
-@app.route("/search", methods=["POST", "GET"])
+@app.route("/search", methods=["POST"])
 def search():
     return SearchController.post_search(request)
 

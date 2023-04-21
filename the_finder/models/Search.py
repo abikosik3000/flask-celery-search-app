@@ -14,7 +14,7 @@ from the_finder import app
 
 class Search(JsonModel):
     text: Optional[StrictStr]
-    file_mask: StrictStr = Field(default="*")
+    file_mask: StrictStr
     size: Optional[FilterSize]
     creation_time: Optional[FilterCreationTime]
     finished: bool = Field(default=False)
@@ -38,10 +38,11 @@ class Search(JsonModel):
         if not self.creation_time is None:
             if not self.creation_time.chek_arhive_compilance(file):
                 return False
-
-        with arhive.open(file.filename, "r") as fbin:
-            if not self.text.encode("utf-8") in fbin.read():
-                return False
+        
+        if not self.text is None:
+            with arhive.open(file.filename, "r") as fbin:
+                if not self.text.encode("utf-8") in fbin.read():
+                    return False
         return True
 
     def _chek_arhive(self, abspath_arhive) -> None:
@@ -66,10 +67,12 @@ class Search(JsonModel):
             if not self.creation_time.chek_compilance(abspath):
                 return False
 
-        with open(abspath, "rb", 0) as file:
-            with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
-                if s.find(self.text.encode("utf-8")) == -1:
-                    return False
+        if not self.text is None:
+            with open(abspath, "rb", 0) as file:
+                with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
+                    if s.find(self.text.encode("utf-8")) == -1:
+                        return False
+                        
         return True
 
     def search(self) -> None:
@@ -85,5 +88,4 @@ class Search(JsonModel):
                     self.save()
 
         self.finished = True
-        print("search end result", self)
         self.save()
