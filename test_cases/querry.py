@@ -4,7 +4,6 @@ import json
 
 sys.path.append("..")
 from the_finder import app
-from the_finder.models.Search import Search
 
 
 class TestUM(unittest.TestCase):
@@ -97,6 +96,36 @@ class TestUM(unittest.TestCase):
         response = self.app.get('/searches/a*()')
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.get_json()['error'], "search id not found")
+
+    def test_200_full_search(self):
+        true_res = {
+            "finished": True,
+            "paths": [
+                "/home/abikosik3000/var/www/search_app/test_repo/file1.txt",
+                "/home/abikosik3000/var/www/search_app/test_repo/file2.txt",
+                "/home/abikosik3000/var/www/search_app/test_repo/folder/test_repo.zip/test_repo/file1.txt",
+                "/home/abikosik3000/var/www/search_app/test_repo/folder/test_repo.zip/test_repo/file2.txt",
+            ],
+        }
+        data = {
+            "file_mask": "*file?.t??",
+            "creation_time": {"value": "2023-04-19T15:16:10+03:00", "operator": "ge"},
+        }
+        response = self._postWithJSON("/search", data)
+        body = response.get_json()
+        search_key = body['search_key']
+
+        response2 = None
+        body2 = None
+        while(True):
+            response2 = self.app.get('/searches/' + search_key)
+            body2 = response2.get_json()
+            if(body2['finished'] == True):
+                break
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response2.status_code, 200)
+        self.assertEqual(body2, true_res)
 
 if __name__ == "__main__":
     unittest.main()

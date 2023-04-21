@@ -6,7 +6,7 @@ from the_finder import app
 from the_finder.models.Search import Search
 
 
-class TestSearch(unittest.TestCase):
+class TestSearchModel(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.ctx = app.app_context()

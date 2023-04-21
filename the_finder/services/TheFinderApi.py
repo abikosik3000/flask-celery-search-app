@@ -14,3 +14,4 @@ class TheFinderApi(InterfaceApi):
     
     def get_result(search_key :str) -> dict:
         return Search.get(search_key).search_res
+    
