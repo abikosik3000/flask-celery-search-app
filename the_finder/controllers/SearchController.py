@@ -7,6 +7,7 @@ from redis_om import NotFoundError
 from the_finder.controllers.Controller import Controller
 from the_finder.services.TheFinderApi import TheFinderApi
 
+
 class SearchController(Controller):
     test_s = '{\
                 "text": "th",\
