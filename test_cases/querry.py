@@ -12,6 +12,7 @@ class TestUM(unittest.TestCase):
         self.ctx = app.app_context()
         self.maxDiff = None
         self.ctx.push()
+        self.app.get("/migrate")
 
     def tearDown(self):
         self.ctx.pop()
