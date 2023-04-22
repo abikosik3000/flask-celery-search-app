@@ -12,6 +12,9 @@ class FilterCreationTime(Filter):
     
     @validator('timestamp', pre=True , always=True)
     def set_timestamp_value(cls,v,values):
+        '''convert the entered time to a timestamp to avoid re-conversion
+        to a timestamp when the filter is called
+        '''
         if 'value' in values:
             try:
                 v = datetime.fromisoformat(values['value'].upper().replace("Z", "+00:00")).timestamp()

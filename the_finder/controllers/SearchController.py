@@ -1,5 +1,3 @@
-import json
-
 from flask import request , jsonify
 from pydantic import ValidationError
 from redis_om import NotFoundError
@@ -9,6 +7,8 @@ from the_finder.services.TheFinderApi import TheFinderApi
 
 
 class SearchController(Controller):
+    '''handling and validation of api requests'''
+
     @staticmethod
     def post_search(request):
         try:

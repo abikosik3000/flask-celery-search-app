@@ -6,6 +6,7 @@ from redis_om import EmbeddedJsonModel, Field
 
 
 class Filter(EmbeddedJsonModel,ABC):
+    '''an abstract filter for search file that uses comparisons'''
     operator: str
     
     @validator('operator')
@@ -15,8 +16,8 @@ class Filter(EmbeddedJsonModel,ABC):
         return v
 
     def _comparate(self, x) -> bool:
+        '''apply a filter and returns the result of the comparison'''
         y = self.get_value()
-        #print(x,y , x - y)
         match self.operator:
             case "eq": 
                 return x == y
@@ -28,17 +29,18 @@ class Filter(EmbeddedJsonModel,ABC):
                 return x >= y
             case "le": 
                 return x <= y
-            case _:
-                return False #ERROR
             
     @abstractmethod
     def get_value(self):
+        '''return filter value to comparation'''
         pass
 
     @abstractmethod
     def chek_compilance(self, fpath: str) -> bool:
+        '''checks if the file passes the filter'''
         pass
 
     @abstractmethod
     def chek_arhive_compilance(self, z_info: ZipInfo) -> bool:
+        '''checks if the arhive file passes the filter'''
         pass

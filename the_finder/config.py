@@ -5,11 +5,11 @@ from the_finder import app
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["BASEDIR"] = basedir
 
-# Директория для поиска файлов
+# directory for searching files
 app.config["SEARCH_DIRECTORY"] = "/home/abikosik3000/var/www/search_app/test_repo"
 
 # REDIS
-app.config["REDIS_HOST"] = '6379'
+app.config["REDIS_HOST"] = 'localhost'
 app.config["REDIS_PORT"] = '6379'
 app.config["REDIS_DB_NUM"] = '0'
 app.config["REDIS_USER"] = None

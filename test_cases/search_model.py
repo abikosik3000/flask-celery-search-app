@@ -9,13 +9,11 @@ from the_finder.models.Search import Search
 class TestSearchModel(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
-        self.ctx = app.app_context()
         self.maxDiff = None
-        self.ctx.push()
         self.app.get("/migrate")
 
     def tearDown(self):
-        self.ctx.pop()
+        pass
 
     def test_mask_all(self):
         true_res = {

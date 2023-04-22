@@ -9,13 +9,11 @@ from the_finder import app
 class TestUM(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
-        self.ctx = app.app_context()
         self.maxDiff = None
-        self.ctx.push()
         self.app.get("/migrate")
 
     def tearDown(self):
-        self.ctx.pop()
+        pass
 
     def _postWithJSON(self, url :str, data :dict):
         return self.app.post(url, data=json.dumps(data), content_type='application/json')

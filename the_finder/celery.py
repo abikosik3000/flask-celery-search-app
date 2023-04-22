@@ -4,6 +4,10 @@ from the_finder import app
 
 
 def make_celery(app):
+    '''creates celery compatible with flask,
+    using flask config
+    '''
+    
     celery = Celery(
         broker=app.config["CELERY_BROKER"],
         include="the_finder.tasks",
