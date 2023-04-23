@@ -9,3 +9,4 @@ the_finder/models/__pycache__/Filter.cpython-310.pyc
 the_finder/models/__pycache__/FilterCreationTime.cpython-310.pyc
 the_finder/models/__pycache__/Search.cpython-310.pyc
 the_finder/services/__pycache__/TheFinderApi.cpython-310.pyc
+__pycache__/tasks.cpython-310.pyc
