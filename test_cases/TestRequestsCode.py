@@ -4,6 +4,8 @@ from TestTasksHelper import TestTaskHelper
 
 
 class TestRequestsCode( TestTaskHelper):
+    '''tests response codes and in particular responses to incorrect queries'''
+    
     def setUp(self):
         self.create_app_test_client()
 

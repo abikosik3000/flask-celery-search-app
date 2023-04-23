@@ -1,14 +1,13 @@
 import unittest
-import sys
 
 from TestTasksHelper import TestTaskHelper
 
-sys.path.append("..")
-from the_finder import app
-from the_finder.models.Search import Search
-
 
 class TestSearchModel(TestTaskHelper):
+    '''tests the correctness of the file search, 
+    going the full way from creating a search to receiving its results
+    '''
+
     def setUp(self):
         self.create_app_test_client()
 
