@@ -9,7 +9,8 @@ import the_finder.config
 redis_client = redis.Redis(
     host=app.config["REDIS_PORT"],
     port=app.config["REDIS_HOST"], 
-    db=app.config["REDIS_DB_NUM"]
+    db=app.config["REDIS_DB_NUM"],
+    
     )
 
 import the_finder.tasks
