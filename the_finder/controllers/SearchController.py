@@ -9,6 +9,8 @@ from the_finder.services.TheFinderApi import TheFinderApi
 
 class SearchController(Controller):
     '''handling and validation of api requests'''
+
+    # realithation api
     api: InterfaceApi = TheFinderApi
 
     @staticmethod
