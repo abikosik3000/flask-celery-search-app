@@ -1,12 +1,1 @@
 **/__pycache__/
-the_finder/__pycache__/celery.cpython-310.pyc
-the_finder/__pycache__/config.cpython-310.pyc
-the_finder/__pycache__/routes.cpython-310.pyc
-the_finder/__pycache__/tasks.cpython-310.pyc
-the_finder/contracts/__pycache__/IntefaceApi.cpython-310.pyc
-the_finder/controllers/__pycache__/SearchController.cpython-310.pyc
-the_finder/models/__pycache__/Filter.cpython-310.pyc
-the_finder/models/__pycache__/FilterCreationTime.cpython-310.pyc
-the_finder/models/__pycache__/Search.cpython-310.pyc
-the_finder/services/__pycache__/TheFinderApi.cpython-310.pyc
-__pycache__/tasks.cpython-310.pyc

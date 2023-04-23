@@ -1,3 +1,3 @@
 #!/bin/bash
-python search_model.py
-python querry.py
+python TestSearchModel.py
+python TestRequestsCode.py
